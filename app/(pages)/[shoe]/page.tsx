@@ -13,7 +13,7 @@ const page = () => {
     [item]
   );
   const [activeIndex, setActiveIndex] = useState(0);
-  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
   if (!item) {
     return (
