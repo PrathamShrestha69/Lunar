@@ -1,176 +1,102 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { HiOutlineShoppingBag } from "react-icons/hi";
-import { motion } from "motion/react";
-import Link from "next/link.js";
-import { usePathname } from "next/navigation.js";
+import React, { useState } from "react";
 import { Icon } from "@iconify/react";
-import { NavLink } from "@/data/NavLink";
-import { Example } from "../AnimatedHamburgerButton";
+import { div } from "motion/react-client";
+
+const navLinks = [
+  "New & All",
+  "Best Sellers",
+  "Drapery",
+  "Sale",
+  "Inspiration",
+  "Support",
+];
+
+const Dropdown = () => {
+  return (
+    <div className="absolute left-0 top-full mt-0 w-80 bg-white border-r border-[#e5ddd0] shadow-lg z-50">
+      <div className="space-y-1 p-4">
+        {/* New to TWOPAGES */}
+        <div className="mb-6 flex items-center gap-2">
+          <a href="#" className="text-sm font-semibold text-[#573720] hover:text-[#3d2715] underline">
+            New to TWOPAGES?
+          </a>
+          <span className="rounded-sm bg-[#573720] px-2 py-0.5 text-[10px] font-semibold uppercase text-white">
+            BEGIN HERE
+          </span>
+        </div>
+
+        {/* New Arrivals */}
+        <a href="#" className="block text-sm font-medium text-[#573720] hover:text-[#3d2715] py-2 transition">
+          New Arrivals
+        </a>
+
+        {/* All */}
+        <a href="#" className="block text-sm font-medium text-[#573720] hover:text-[#3d2715] py-2 transition">
+          All
+        </a>
+      </div>
+    </div>
+  )
+}
 
 const Navbar = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const [cartOpen, setCartOpen] = useState<boolean>(false);
-  const [hidden, setHidden] = useState<boolean>(false);
-  const lastY = useRef(0);
+  const [active, isActive] = useState<boolean>(false);
 
-  const [scrolled, setScrolled] = useState<boolean>(false);
-
-  const location = usePathname();
-  const isHome = location === "/";
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 5) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      const delta = y - lastY.current;
-
-      if (Math.abs(delta) < 5) return;
-
-      if (mobileMenuOpen) {
-        setHidden(false);
-        lastY.current = y;
-        return;
-      }
-
-      if (y > 60 && delta > 1) {
-        setHidden(true);
-      } else {
-        setHidden(false);
-      }
-
-      lastY.current = y;
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [mobileMenuOpen]);
-
-  const backgroundClass = mobileMenuOpen
-    ? "bg-white text-black"
-    : scrolled || !isHome
-    ? "bg-black text-white shadow-md"
-    : "bg-transparent text-white";
+  const enter = () => {
+    isActive(true)
+  }
+  const leave = () => {
+    isActive(false)
+  }
 
   return (
-    <div
-      className={`fixed top-0 left-0 right-0 z-50 font-[DM_Sans] transition-transform transition-opacity duration-300 ${backgroundClass} ${
-        hidden ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
-      }`}
-    >
-      {/* Desktop View */}
-      <div className="font-[DM_Sans] items-center justify-between px-15 py-4 bg-transparent lg:flex hidden">
-        <Link href="/" className="inline-flex items-center">
-          <img
-            src="/white-logo.png"
-            alt="Nivest logo"
-            className="h-10 w-auto object-contain"
-          />
-        </Link>
-        <div className="flex flex-row gap-5 leading-5 text-xl">
-          {NavLink.map((nav) => (
-            <Link
-              key={nav.name}
-              href={nav.link}
-              className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md px-6 duration-500"
-            >
-              <div className="translate-y-0 transition-transform transform-flat duration-300 group-hover:-translate-y-[190%] cursor-pointer">
-                {nav.name}
-              </div>
-              <div className="absolute translate-y-[156%] transition group-hover:translate-y-0 duration-300">
-                {nav.name}
-              </div>
-            </Link>
-          ))}
-        </div>
-        <div className="flex gap-2 items-center">
-          <button
-            onClick={() => setCartOpen(true)}
-            className="relative flex items-center gap-1 cursor-pointer hover:opacity-80"
-          >
-            <HiOutlineShoppingBag style={{ height: "30px", width: "30px" }} />
-            {/* {cartItems.length > 0 && (
-              <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-red-600 text-white text-xs flex items-center justify-center">
-                {cartItems.length}
-              </span>
-            )} */}
-          </button>
-          <a href="https://whatsapp.com">
-            <div className="border  border-[0.1vw] text-white p-2 rounded-full border-green-600 hover:bg-green-600 flex items-center gap-2">
-              <Icon icon="logos:whatsapp-icon"/>
+    <div>
+      <nav className="bg-white text-[#573720] shadow-sm">
+        <div className="flex  items-center justify-between gap-4 px-5 py-4 lg:px-8">
+          
+          <div className="flex items-center gap-4">
+            <img src="/logo-black.png" alt="TWOPAGES" className="h-6 w-auto" />
+          </div>
+          <div className="relative overflow-visible" onMouseEnter={() => isActive(true)} onMouseLeave={() => isActive(false)}>
+            <div className=" bg-white">
+              <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-10 px-4  text-md font-medium lg:gap-20 lg:px-8">
+                {navLinks.map((label) => (
+                  <button
+                    key={label}
+                    className="relative whitespace-nowrap text-[#573720] transition hover:text-[#3d2715] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-[#573720] after:content-[''] after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100"
+                  >
+                    {label}
 
-              <p>Whatsapp</p>
+                  </button>
+
+                ))}
+              </div>
             </div>
-          </a>
-        </div>
-      </div>
-
-      {/* Mobile View */}
-      <div>
-        <div className="font-[DM_Sans] items-center justify-between px-3 bg-transparent lg:hidden flex">
-          <Example isOpen={mobileMenuOpen} onToggle={setMobileMenuOpen} />
-          <Link href={"/"} className="inline-flex items-center">
-            <img
-              src="/white-logo.png"
-              alt="Nivest logo"
-              className="h-10 w-24 object-contain"
-            />
-          </Link>
-          <div>
-            <HiOutlineShoppingBag style={{ height: "30px", width: "30px" }} />
+            {active && <Dropdown />}
+          </div>
+          {/* Icons */}
+          <div className="flex gap-5 text-[#573720] ">
+            <button aria-label="Call" className="hidden lg:block hover:text-[#6a4328] cursor-pointer">
+              <Icon icon="fluent:call-24-filled" width={24} height={24} />
+            </button>
+            <button aria-label="Account" className="hidden lg:block hover:text-[#6a4328] cursor-pointer">
+              <Icon icon="ri:account-circle-fill" width={24} height={24} />
+            </button>
+            <button aria-label="Orders" className="hidden lg:block hover:text-[#6a4328] cursor-pointer">
+              <Icon icon="fa-solid:truck" width={26} height={26} />
+            </button>
+            <button aria-label="Cart" className="relative hover:text-[#6a4328] cursor-pointer" >
+              <Icon icon="mynaui:cart-solid" width={24} height={24} />
+              <span className="absolute -right-2 -top-2 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-[#f25b3d] px-1.5 text-[10px] font-semibold text-white">
+                0
+              </span>
+            </button>
           </div>
         </div>
-
-        {/* Mobile Dropdown Menu */}
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{
-            height: mobileMenuOpen ? "100vh" : 0,
-            opacity: mobileMenuOpen ? 1 : 0,
-          }}
-          transition={{ duration: 0.5 }}
-          className="lg:hidden overflow-hidden bg-white h-96"
-        >
-          {NavLink.map((item) => (
-            <Link
-              key={item.name}
-              href={item.link}
-              onClick={() => setMobileMenuOpen(false)}
-              className="block"
-            >
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{
-                  opacity: mobileMenuOpen ? 1 : 0,
-                  x: mobileMenuOpen ? 0 : -20,
-                }}
-                transition={{ duration: 0.3 }}
-                className="px-6 py-1 cursor-pointer text-5xl"
-              >
-                {item.name}
-              </motion.div>
-            </Link>
-          ))}
-          
-        </motion.div>
-      </div>
+      </nav>
     </div>
   );
 };
 
 export default Navbar;
-
