@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MotionConfig, motion } from "motion/react";
 
-export const Example = ({ isOpen, onToggle }) => {
+export const Example = ({ isOpen, onToggle }: { isOpen: boolean; onToggle: (state: boolean) => void }) => {
   return (
     <div className="">
       <AnimatedHamburgerButton isOpen={isOpen} onToggle={onToggle} />
@@ -9,7 +9,7 @@ export const Example = ({ isOpen, onToggle }) => {
   );
 };
 
-const AnimatedHamburgerButton = ({ isOpen, onToggle }) => {
+const AnimatedHamburgerButton = ({ isOpen, onToggle }: { isOpen: boolean; onToggle: (state: boolean) => void }) => {
   return (
     <MotionConfig
       transition={{
@@ -25,23 +25,20 @@ const AnimatedHamburgerButton = ({ isOpen, onToggle }) => {
       >
         <motion.span
           variants={VARIANTS.top}
-          className={`absolute h-1 w-8 transition-colors ${
-            isOpen ? "bg-black" : "bg-white"
-          }`}
+          className={`absolute h-1 w-8 transition-colors ${isOpen ? "bg-black" : "bg-white"
+            }`}
           style={{ y: "-50%", left: "50%", x: "-50%", top: "35%" }}
         />
         <motion.span
           variants={VARIANTS.middle}
-          className={`absolute h-1 w-7 transition-colors ${
-            isOpen ? "bg-black" : "bg-white"
-          }`}
+          className={`absolute h-1 w-7 transition-colors ${isOpen ? "bg-black" : "bg-white"
+            }`}
           style={{ left: "50%", x: "-70%", top: "50%", y: "-50%" }}
         />
         <motion.span
           variants={VARIANTS.bottom}
-          className={`absolute h-1 w-5 transition-colors ${
-            isOpen ? "bg-black" : "bg-white"
-          }`}
+          className={`absolute h-1 w-5 transition-colors ${isOpen ? "bg-black" : "bg-white"
+            }`}
           style={{
             x: "-145%",
             y: "50%",
