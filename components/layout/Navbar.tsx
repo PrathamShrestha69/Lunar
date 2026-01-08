@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import Dropdown from "./Dropdown";
 import Dropdown2 from "./Dropdown2";
+import Search from "./Search";
 
 const navLinks = [
   "New & All",
@@ -15,11 +16,16 @@ const navLinks = [
 
 const Navbar = () => {
   const [active, setActive] = useState<null | "primary" | "secondary">(null);
+  const [search, setSearch] = useState(false);
+
+  const searchToggle = () => {
+    setSearch(!search);
+  };
 
   return (
     <div
       className="relative"
-      onMouseLeave={() => setActive(null)}
+      
     >
       <nav className="bg-white text-[#573720] shadow-sm">
         <div className="flex items-center justify-between gap-4 px-5 py-4 lg:px-8">
@@ -33,6 +39,7 @@ const Navbar = () => {
                   onMouseEnter={() =>
                     setActive(label === "Best Sellers" || label === "Sale" ? "secondary" : "primary")
                   }
+                  
                   key={label}
                   className="relative whitespace-nowrap text-[#573720] transition hover:text-[#3d2715] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-[#573720] after:content-[''] after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100"
                 >
@@ -42,6 +49,9 @@ const Navbar = () => {
             </div>
           </div>
           <div className="flex gap-5 text-[#573720]">
+            <button onClick={searchToggle} aria-label="Call" className="hidden cursor-pointer hover:text-[#6a4328] lg:block">
+              <Icon icon="fa-solid:search" width={22} height={22} />
+            </button>
             <button aria-label="Call" className="hidden cursor-pointer hover:text-[#6a4328] lg:block">
               <Icon icon="fluent:call-24-filled" width={24} height={24} />
             </button>
@@ -60,8 +70,12 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+      <div onMouseLeave={() => setActive(null)}>
       {active === "primary" && <Dropdown />}
       {active === "secondary" && <Dropdown2 />}
+
+      </div>
+      {search && <Search onClose={() => setSearch(false)} />}
     </div>
   );
 };
