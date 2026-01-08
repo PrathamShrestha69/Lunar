@@ -1,12 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import shoe from "@/data/shoe";
+import curtain from "@/data/curtain";
 import FilterPanel from "./FilterPanel";
 import StoreCard from "./StoreCard";
 
 const ShopContent = () => {
-  const [filters, setFilters] = useState<{ gender: string[]; collection: string[]; price: string[] }>({
-    gender: [],
+  const [filters, setFilters] = useState<{ collection: string[]; price: string[] }>({
     collection: [],
     price: [],
   });
@@ -19,18 +18,7 @@ const ShopContent = () => {
     return "120plus";
   };
 
-  const filteredShoes = shoe.filter((item) => {
-    // Filter by gender - map "Men" to "male" and "Women" to "female"
-    if (filters.gender.length > 0 && !filters.gender.includes("All")) {
-      const genderMap: Record<string, "male" | "female"> = { Men: "male", Women: "female" };
-      const selectedGenders: Array<"male" | "female"> = filters.gender.flatMap((g) =>
-        genderMap[g] ? [genderMap[g]] : []
-      );
-      if (!selectedGenders.includes(item.gender as "male" | "female")) {
-        return false;
-      }
-    }
-
+  const filteredCurtains = curtain.filter((item) => {
     // Filter by collection (tag)
     if (
       filters.collection.length > 0 &&
@@ -63,14 +51,14 @@ const ShopContent = () => {
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-3xl font-bold">Shop</h1>
           <p className="text-sm text-gray-600 mr-7 lg:mr-0">
-            {filteredShoes.length} product
-            {filteredShoes.length !== 1 ? "s" : ""}
+            {filteredCurtains.length} product
+            {filteredCurtains.length !== 1 ? "s" : ""}
           </p>
         </div>
 
         <div className="grid grid-cols-2 gap-2 lg:gap-15 md:grid-cols-2 md:gap-12 lg:grid-cols-3">
-          {filteredShoes.length > 0 ? (
-            filteredShoes.map((item) => <StoreCard key={item.id} shoe={item} />)
+          {filteredCurtains.length > 0 ? (
+            filteredCurtains.map((item) => <StoreCard key={item.id} curtain={item} />)
           ) : (
             <div className="col-span-full flex h-40 items-center justify-center text-gray-500">
               No products match your filters

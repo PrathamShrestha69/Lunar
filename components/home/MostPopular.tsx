@@ -1,10 +1,10 @@
 import { Icon } from "@iconify/react";
 import React from "react";
-import shoe from "@/data/shoe";
+import curtain from "@/data/curtain";
 import Card from "../Card";
 
 const MostPopular = () => {
-  const popularShoes = shoe
+  const popularCurtains = curtain
     .filter((item) => item.tag === "Popular")
     .slice(0, 3);
 
@@ -25,8 +25,8 @@ const MostPopular = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-5 lg:grid-cols-3">
-        {popularShoes.map((shoeItem) => (
-          <Card key={shoeItem.id} shoe={shoeItem} />
+        {popularCurtains.map((curtainItem) => (
+          <Card key={curtainItem.id} curtain={curtainItem} />
         ))}
       </div>
     </div>

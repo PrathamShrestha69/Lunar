@@ -19,7 +19,7 @@ const shoe: ShoeType[] = [
     id: 1,
     tag: "Popular",
     image: {
-      side: "https://framerusercontent.com/images/Ob2slJdcSxGNg778hOgMykxYqA.png?width=1504&height=928",
+      side: "//twopagescurtains.com/cdn/shop/files/7-Velvet-Curtain-homepage-best.webp?v=1763714313&width=560 560w,//twopagescurtains.com/cdn/shop/files/7-Velvet-Curtain-homepage-best.webp?v=1763714313&width=750 750w",
       back: "https://framerusercontent.com/images/aRxYgsmnCiWeuXqUX8WQoc03Sk.png?width=1024&height=1536",
     },
     name: "Slate Stride",

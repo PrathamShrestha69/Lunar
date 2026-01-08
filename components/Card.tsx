@@ -3,46 +3,40 @@ import { Icon } from "@iconify/react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import React, { useState } from "react";
-import { type ShoeType } from "@/data/shoe";
+import { type CurtainType } from "@/data/curtain";
 
-const Card = ({ shoe }: { shoe: ShoeType }) => {
-  if (!shoe) return null;
+const Card = ({ curtain }: { curtain: CurtainType }) => {
+  if (!curtain) return null;
   const [hover, isHovered] = useState<boolean>(false);
-  const sizes = () => {
-    isHovered(true);
-  };
-  const leaveSizes = () => {
-    isHovered(false);
-  };
 
   return (
     <div className="flex flex-col font-[DM_Sans]">
-      <Link href={`/${shoe.id}`} className="block">
+      <Link href={`/${curtain.id}`} className="block">
         <div
-          onMouseEnter={sizes}
-          onMouseLeave={leaveSizes}
-          className="bg-[#F5F5F5] h-[56vw] lg:h-[32vw] w-[45vw] lg:w-[28vw] items-center rounded-2xl lg:px-5 cursor-pointer"
+          onMouseEnter={() => isHovered(true)}
+          onMouseLeave={() => isHovered(false)}
+          className="bg-[#F5F5F5] h-[60vw] lg:h-[36vw] w-[45vw] lg:w-[28vw] items-center rounded-2xl lg:px-5 cursor-pointer overflow-hidden relative group"
         >
-          <div className="justify-between items-center flex p-3 lg:py-5">
+          <div className="justify-between items-center flex p-3 lg:py-5 relative z-10">
             <div
-              className={`${shoe.tag === "New"
+              className={`${curtain.tag === "New"
                 ? "bg-blue-600"
-                : shoe.tag === "Popular"
+                : curtain.tag === "Popular"
                   ? "bg-black"
-                  : "Red"
+                  : "bg-red-600"
                 } text-white w-min px-3 py-1 rounded-full text-xs lg:text-sm`}
             >
-              {shoe.tag}
+              {curtain.tag}
             </div>
-            <div className="bg-white p-2 rounded-full hover:bg-zinc-300">
+            <div className="bg-white p-2 rounded-full hover:bg-zinc-300 transition-colors">
               <Icon icon="tdesign:heart" />
             </div>
           </div>
-          <div className="relative w-full h-1/2">
+          <div className="relative w-full h-3/4 px-3">
             <img
-              src={hover ? shoe.image.back : shoe.image.side}
-              alt={shoe.name}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center align-middle lg:mt-15 mt-5 px-5"
+              src={hover ? curtain.image.back : curtain.image.side}
+              alt={curtain.name}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-1.5rem)] h-[80%] object-cover rounded-2xl transition-all duration-300"
             />
           </div>
           {hover && (
@@ -51,26 +45,25 @@ const Card = ({ shoe }: { shoe: ShoeType }) => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 20, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="relative bg-white rounded-xl p-3 top-16"
+              className="absolute bottom-5 left-3 right-3 bg-white/95 backdrop-blur-sm rounded-xl p-4 "
             >
-              <h1>Select Size</h1>
-              <div className="flex flex-row items-center justify-between">
-                {["5", "6", "8"].map((size) => (
-                  <div
-                    key={size}
-                    className=" text-black border-[0.1vw] py-3 px-10 rounded-2xl border-zinc-200 hover:border-zinc-800 bottom-96 hidden lg:flex"
-                  >
-                    {size}
-                  </div>
-                ))}
-              </div>
+              <p className="text-sm text-gray-700 line-clamp-2">{curtain.desc}</p>
             </motion.div>
           )}
         </div>
       </Link>
-      <Link href={`/${shoe.id}`} className="text-black font-bold mt-2 block">
-        <h1>{shoe.name}</h1>
-        <p>€{shoe.price}</p>
+      <Link href={`/${curtain.id}`} className="text-black mt-3 block">
+        <h1 className="font-bold text-base lg:text-lg">{curtain.name}</h1>
+        <div className="flex items-center gap-2 mt-1">
+          {curtain.discountedPrice ? (
+            <>
+              <p className="font-semibold text-lg text-red-600">€{curtain.discountedPrice}</p>
+              <p className="text-sm text-gray-500 line-through">€{curtain.price}</p>
+            </>
+          ) : (
+            <p className="font-semibold text-lg">€{curtain.price}</p>
+          )}
+        </div>
       </Link>
     </div>
   );

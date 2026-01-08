@@ -2,12 +2,11 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 
-type Filters = { gender: string[]; collection: string[]; price: string[] };
+type Filters = { collection: string[]; price: string[] };
 type SectionKey = "price";
 type PriceKey = "under50" | "50-80" | "80-120" | "120plus";
 
 const FilterPanel = ({ onFilterChange }: { onFilterChange: (filters: Filters) => void }) => {
-  const [gender, setGender] = useState<string[]>([]);
   const [collection, setCollection] = useState<string[]>([]);
   const [price, setPrice] = useState<PriceKey[]>([]);
   const [expandedSections, setExpandedSections] = useState<Record<SectionKey, boolean>>({
@@ -21,27 +20,12 @@ const FilterPanel = ({ onFilterChange }: { onFilterChange: (filters: Filters) =>
     }));
   };
 
-  const handleGenderChange = (value: "All" | "Men" | "Women") => {
-    let newGender;
-    if (value === "All") {
-      newGender = gender.includes("All") ? [] : ["All"];
-    } else {
-      newGender = gender.includes("All")
-        ? [value]
-        : gender.includes(value)
-          ? gender.filter((g) => g !== value)
-          : [...gender, value];
-    }
-    setGender(newGender);
-    onFilterChange({ gender: newGender, collection, price });
-  };
-
   const handleCollectionChange = (value: "New" | "Popular" | "Sale") => {
     const newCollection = collection.includes(value)
       ? collection.filter((c) => c !== value)
       : [...collection, value];
     setCollection(newCollection);
-    onFilterChange({ gender, collection: newCollection, price });
+    onFilterChange({ collection: newCollection, price });
   };
 
   const handlePriceChange = (value: PriceKey) => {
@@ -49,7 +33,7 @@ const FilterPanel = ({ onFilterChange }: { onFilterChange: (filters: Filters) =>
       ? price.filter((p) => p !== value)
       : [...price, value];
     setPrice(newPrice);
-    onFilterChange({ gender, collection, price: newPrice });
+    onFilterChange({ collection, price: newPrice });
   };
 
   return (
@@ -57,29 +41,6 @@ const FilterPanel = ({ onFilterChange }: { onFilterChange: (filters: Filters) =>
       <div className="flex items-center gap-2">
         <Icon icon="solar:settings-linear" width="20" height="20" />
         <h2 className="text-lg font-semibold">Filter</h2>
-      </div>
-
-      <hr className="border-[#e5e5e5]" />
-
-      {/* Gender Section */}
-      <div className="space-y-3">
-        <h3 className="text-sm font-semibold text-black">Gender (0)</h3>
-        <div className="space-y-2">
-          {(["All", "Men", "Women"] as const).map((item) => (
-            <label
-              key={item}
-              className="flex items-center gap-3 cursor-pointer"
-            >
-              <input
-                type="checkbox"
-                checked={gender.includes(item)}
-                onChange={() => handleGenderChange(item)}
-                className="h-4 w-4 cursor-pointer accent-blue-600"
-              />
-              <span className="text-sm text-blue-600">{item}</span>
-            </label>
-          ))}
-        </div>
       </div>
 
       <hr className="border-[#e5e5e5]" />

@@ -1,10 +1,10 @@
 import { Icon } from "@iconify/react";
-import shoe from "@/data/shoe";
+import curtain from "@/data/curtain";
 import Card from "./Card";
 
 
 const NewArrival = () => {
-  const newShoes = shoe.filter((item) => item.tag === "New").slice(0, 3);
+  const newCurtains = curtain.filter((item) => item.tag === "New").slice(0, 3);
 
   return (
     <div className="font-[DM_Sans] w-full px-5 lg:px-15 py-10 lg:py-20">
@@ -17,8 +17,8 @@ const NewArrival = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-5 lg:grid-cols-3">
-        {newShoes.map((shoeItem) => (
-          <Card key={shoeItem.id} shoe={shoeItem} />
+        {newCurtains.map((curtainItem) => (
+          <Card key={curtainItem.id} curtain={curtainItem} />
         ))}
       </div>
     </div>
