@@ -19,9 +19,7 @@ export const metadata: Metadata = {
   title: "Lunar",
   description: "Lunar website",
   icons: {
-    icon: "/white-fav.png",
-    shortcut: "/white-fav.png",
-    apple: "/white-fav.png",
+    icon: "/white-fav.ico",
   },
 };
 
