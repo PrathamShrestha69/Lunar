@@ -54,15 +54,17 @@ const Navbar = () => {
       <nav className={`fixed  left-0 right-0 z-40 bg-white text-[#573720] shadow-sm transition-transform duration-300 ${isVisible ? "translate-y-0" : "-translate-y-full"
         }`}>
         <div className="flex items-center justify-between gap-4 px-5 py-4 lg:px-8">
+          {/* Logo */}
           <div className="flex items-center gap-4">
             <Link href={'/'}><img src="/logo-black.png" alt="lunar" className="h-6 w-auto" /></Link>
           </div>
+          {/* Nav links */}
           <div className="bg-white">
             <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-5 px-4 text-md font-medium lg:gap-10 lg:px-8">
               {navLinks.map((label) => (
                 <button
                   onMouseEnter={() =>
-                    setActive(label === "Best Sellers" || label === "Sale" ? "secondary" : label === "About" || label === "Shop" ? "Tertiary" : "primary"
+                    setActive(label === "Best Sellers" || label === "Sale" ? "secondary" : label === "About" || label === "Shop" || label === "Support"? "Tertiary" : "primary"
                     )
                   }
 
@@ -74,6 +76,7 @@ const Navbar = () => {
               ))}
             </div>
           </div>
+          {/* Icons */}
           <div className="flex gap-5 text-[#573720]">
             <button onClick={searchToggle} aria-label="Call" className="hidden cursor-pointer hover:text-[#6a4328] lg:block">
               <Icon icon="fa-solid:search" width={22} height={22} />
