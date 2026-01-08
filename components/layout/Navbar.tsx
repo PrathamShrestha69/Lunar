@@ -56,7 +56,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between gap-4 px-5 py-4 lg:px-8">
           {/* Logo */}
           <div className="flex items-center gap-4">
-            <Link href={'/'}><img src="/logo-black.png" alt="lunar" className="h-6 w-auto" /></Link>
+            <Link href={'/'}><img src="/logo-main.png" alt="lunar" className="h-6 w-auto" /></Link>
           </div>
           {/* Nav links */}
           <div className="bg-white">
@@ -64,7 +64,7 @@ const Navbar = () => {
               {navLinks.map((label) => (
                 <button
                   onMouseEnter={() =>
-                    setActive(label === "Best Sellers" || label === "Sale" ? "secondary" : label === "About" || label === "Shop" || label === "Support"? "Tertiary" : "primary"
+                    setActive(label === "Best Sellers" || label === "Sale" ? "secondary" : label === "About" || label === "Shop" || label === "Support" ? "Tertiary" : "primary"
                     )
                   }
 

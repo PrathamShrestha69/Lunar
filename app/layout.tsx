@@ -18,7 +18,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Lunar",
   description: "Lunar website",
-  icons: { icon: "/favicon.png" },
+  icons: {
+    icon: "/white-fav.png",
+    shortcut: "/white-fav.png",
+    apple: "/white-fav.png",
+  },
 };
 
 export default function RootLayout({

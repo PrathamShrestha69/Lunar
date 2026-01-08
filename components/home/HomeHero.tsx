@@ -19,7 +19,7 @@ const HomeHero = () => {
         >
           <h1 className="text-4xl font-bold lg:text-6xl">PERFORMANCE</h1>
           <h1 className="text-4xl font-bold lg:text-6xl">IN EVERY STEP</h1>
-          <p className="mt-2 text-sm text-zinc-900 lg:text-lg">
+          <p className="mt-2 text-sm text-black lg:text-lg">
             Form function and attitude on repeat
           </p>
           <button className="group relative mt-4 inline-flex items-center justify-center overflow-hidden rounded-full bg-white px-4 py-2 font-bold text-black duration-500 h-10 w-26">
