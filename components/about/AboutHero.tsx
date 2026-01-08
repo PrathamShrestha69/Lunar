@@ -3,7 +3,7 @@ import React from "react";
 const AboutHero = () => {
   return (
     <div className="bg-black text-white text-2xl lg:text-5xl  text-center font-bold">
-      <h1 className="uppercase py-5 px-5 mt-5">
+      <h1 className="uppercase py-5 px-5">
         We build movement. Every pair is made for action on the street, on the
         run, on your terms.
       </h1>

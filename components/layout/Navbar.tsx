@@ -1,11 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import Dropdown from "./Dropdown";
 import Dropdown2 from "./Dropdown2";
 import Search from "./Search";
+import Link from "next/link";
 
 const navLinks = [
+  "About",
+  "Shop",
   "New & All",
   "Best Sellers",
   "Drapery",
@@ -15,8 +18,30 @@ const navLinks = [
 ];
 
 const Navbar = () => {
-  const [active, setActive] = useState<null | "primary" | "secondary">(null);
+  const [active, setActive] = useState<null | "primary" | "secondary" | "Tertiary">(null);
   const [search, setSearch] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Show navbar when scrolling up (negative scroll delta)
+      if (currentScrollY < lastScrollY) {
+        setIsVisible(true);
+      }
+      // Hide navbar when scrolling down (positive scroll delta) and past a threshold
+      else if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setIsVisible(false);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   const searchToggle = () => {
     setSearch(!search);
@@ -25,25 +50,26 @@ const Navbar = () => {
   return (
     <div
       className="relative"
-      
     >
-      <nav className="bg-white text-[#573720] shadow-sm">
+      <nav className={`fixed  left-0 right-0 z-40 bg-white text-[#573720] shadow-sm transition-transform duration-300 ${isVisible ? "translate-y-0" : "-translate-y-full"
+        }`}>
         <div className="flex items-center justify-between gap-4 px-5 py-4 lg:px-8">
           <div className="flex items-center gap-4">
-            <img src="/logo-black.png" alt="TWOPAGES" className="h-6 w-auto" />
+            <Link href={'/'}><img src="/logo-black.png" alt="lunar" className="h-6 w-auto" /></Link>
           </div>
           <div className="bg-white">
-            <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-10 px-4 text-md font-medium lg:gap-20 lg:px-8">
+            <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-5 px-4 text-md font-medium lg:gap-10 lg:px-8">
               {navLinks.map((label) => (
                 <button
                   onMouseEnter={() =>
-                    setActive(label === "Best Sellers" || label === "Sale" ? "secondary" : "primary")
+                    setActive(label === "Best Sellers" || label === "Sale" ? "secondary" : label === "About" || label === "Shop" ? "Tertiary" : "primary"
+                    )
                   }
-                  
+
                   key={label}
                   className="relative whitespace-nowrap text-[#573720] transition hover:text-[#3d2715] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-[#573720] after:content-[''] after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100"
                 >
-                  {label}
+                  <Link href={`/${label.toLowerCase()}`} className="block">{label}</Link>
                 </button>
               ))}
             </div>
@@ -70,10 +96,10 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <div onMouseLeave={() => setActive(null)}>
-      {active === "primary" && <Dropdown />}
-      {active === "secondary" && <Dropdown2 />}
 
+      <div onMouseLeave={() => setActive(null)}>
+        {active === "primary" ? <Dropdown /> : active === "Tertiary" && null}
+        {active === "secondary" ? <Dropdown2 /> : active === "Tertiary" && null}
       </div>
       {search && <Search onClose={() => setSearch(false)} />}
     </div>

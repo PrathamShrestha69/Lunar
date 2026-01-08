@@ -56,7 +56,7 @@ const Dropdown = () => {
   ];
 
   return (
-    <div className="absolute left-0 right-0 top-full z-50 bg-white shadow-[0_12px_36px_rgba(0,0,0,0.08)]">
+    <div className="absolute left-0 right-0 top-14 z-50 bg-white shadow-[0_12px_36px_rgba(0,0,0,0.08)]">
       <div className="mx-auto max-w-6xl px-6 py-6 lg:px-10">
         <div className="mb-5 flex items-center gap-2 text-sm font-semibold text-[#573720]">
           <a href="#" className="underline hover:text-[#3d2715]">
