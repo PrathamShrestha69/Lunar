@@ -6,6 +6,7 @@ import Dropdown2 from "./Dropdown2";
 import Search from "./Search";
 import Link from "next/link";
 
+
 const navLinks = [
   "About",
   "Shop",
