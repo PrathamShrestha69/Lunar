@@ -2,7 +2,7 @@
 
 import React from "react";
 import { type CurtainType } from "@/data/curtain";
-import TransitionLink from "@/components/TransitionLink";
+import TransitionLink from "@/providers/TransitionLink";
 
 const Card = ({ curtain }: { curtain: CurtainType }) => {
   const words = curtain.name.trim().split(/\s+/);

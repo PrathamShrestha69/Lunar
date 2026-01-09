@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import Dropdown from "./Dropdown";
 import Dropdown2 from "./Dropdown2";
 import Search from "./Search";
-import TransitionLink from "@/components/TransitionLink";
+import TransitionLink from "@/providers/TransitionLink";
 import { Example as AnimatedHamburgerButton } from "@/components/AnimatedHamburgerButton";
 
 

@@ -1,7 +1,7 @@
 "use client";
 import { type CurtainType } from "@/data/curtain";
 import React from "react";
-import TransitionLink from "@/components/TransitionLink";
+import TransitionLink from "@/providers/TransitionLink";
 
 const CardBg = ({ curtain }: { curtain: CurtainType }) => {
   if (!curtain) return null;
