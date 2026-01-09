@@ -16,8 +16,8 @@ const SupportForm = () => {
   return (
     <div className="mt-15">
       <h1 className="font-bold lg:text-7xl text-5xl ">Support</h1>
-      <div className="flex flex-col lg:flex-row gap-5 lg:gap-40">
-        <div className="mt-5 lg:mt-10">
+      <div className="flex  justify-between flex-col lg:flex-row gap-5 lg:gap-40">
+        <div className="mt-5  lg:mt-10">
           <p className="lg:font-medium text-md">
             Do you have any questions about our products?{" "}
           </p>
@@ -86,13 +86,13 @@ const SupportForm = () => {
                 placeholder="Message"
                 name=""
                 id=""
-                className="border border-t-white border-l-white border-r-white focus:outline-none border-b-[#979797] px-5 py-3 mt-2 w-[70vw] h-40 lg:w-[32vw]"
+                className="border border-t-white border-l-white border-r-white focus:outline-none border-b-[#979797] px-5 py-3 mt-2 w-[90vw] h-40 lg:w-[32vw]"
               />
 
               <button
                 onMouseEnter={handleHover}
                 onMouseLeave={handleLeave}
-                className="group p-3 bg-[#D4DCCF] rounded-2xl hover:bg-[#3A3D38] hover:text-white transition overflow-hidden overflow-x-hidden absolute bottom-5 lg:-right-15 -right-2"
+                className="group p-3 bg-[#D4DCCF] rounded-2xl hover:bg-[#3A3D38] hover:text-white transition overflow-hidden overflow-x-hidden absolute bottom-5 lg:right-2 right-0"
               >
                 <div className={`${active ? "-rotate-45" : ""} transition`}>
                   <Icon icon="solar:arrow-right-linear" />

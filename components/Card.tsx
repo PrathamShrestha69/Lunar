@@ -1,69 +1,68 @@
 "use client";
-import { Icon } from "@iconify/react";
-import { motion } from "motion/react";
-import Link from "next/link";
-import React, { useState } from "react";
+
+import React from "react";
 import { type CurtainType } from "@/data/curtain";
+import TransitionLink from "@/components/TransitionLink";
 
 const Card = ({ curtain }: { curtain: CurtainType }) => {
-  if (!curtain) return null;
-  const [hover, isHovered] = useState<boolean>(false);
+  const words = curtain.name.trim().split(/\s+/);
+  const firstWord = words[0] ?? "";
+  const emphasizedWord = words[1] ?? "";
+  const rest = words.slice(2).join(" ");
+
+  const title = (
+    <h3 className="text-[22px] font-medium leading-tight">
+      {firstWord}
+      {emphasizedWord ? (
+        <>
+          {" "}
+          <span className="underline underline-offset-4">
+            {emphasizedWord}
+          </span>
+        </>
+      ) : null}
+      {rest ? ` ${rest}` : ""}
+    </h3>
+  );
+
+  const ctaLabel = emphasizedWord
+    ? `EXPLORE ${emphasizedWord.toUpperCase()} COMFORT →`
+    : "EXPLORE COMFORT →";
 
   return (
-    <Link href={`/${curtain.id}`} className="block font-[DM_Sans]">
-      <div
-        onMouseEnter={() => isHovered(true)}
-        onMouseLeave={() => isHovered(false)}
-        className="bg-[#F5F5F5] h-[60vw] lg:h-[36vw] w-[45vw] lg:w-[28vw] rounded-2xl lg:px-5 cursor-pointer overflow-hidden relative group flex flex-col justify-between"
-      >
-        <div className="justify-between items-center flex p-3 lg:py-5 relative z-10">
-          <div
-            className={`${curtain.tag === "New"
-              ? "bg-blue-600"
-              : curtain.tag === "Popular"
-                ? "bg-black"
-                : "bg-red-600"
-              } text-white w-min px-3 py-1 rounded-full text-xs lg:text-sm`}
-          >
-            {curtain.tag}
+    <article className="bg-white">
+      <div className="group relative overflow-hidden bg-neutral-100">
+        <TransitionLink href={`/${curtain.id}`} className="block">
+          <div className="aspect-4/5 w-full">
+            <img
+              src={curtain.image.side}
+              alt={curtain.name}
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+              loading="lazy"
+            />
           </div>
-          <div className="bg-white p-2 rounded-full hover:bg-zinc-300 transition-colors">
-            <Icon icon="tdesign:heart" />
-          </div>
-        </div>
-        <div className="relative w-full h-3/4 px-3">
-          <img
-            src={hover ? curtain.image.back : curtain.image.side}
-            alt={curtain.name}
-            className="absolute top-[12vw] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-1.5rem)] h-[80%] object-cover rounded-2xl transition-all duration-300"
-          />
-        </div>
-        {hover && (
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 20, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="absolute bottom-5 left-3 right-3 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg"
-          >
-            <p className="text-sm text-gray-700 line-clamp-2">{curtain.desc}</p>
-          </motion.div>
-        )}
-        <div className="flex flex-col gap-1 px-4 pb-10 text-black">
-          <h1 className="font-bold text-base lg:text-lg leading-tight">{curtain.name}</h1>
-          <div className="flex items-center gap-2">
-            {curtain.discountedPrice ? (
-              <>
-                <p className="font-semibold text-lg text-red-600">€{curtain.discountedPrice}</p>
-                <p className="text-sm text-gray-500 line-through">€{curtain.price}</p>
-              </>
-            ) : (
-              <p className="font-semibold text-lg">€{curtain.price}</p>
-            )}
+        </TransitionLink>
+
+        <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100">
+          <div className="absolute inset-0 bg-black/45 " />
+          <div className="absolute inset-0 flex flex-col justify-end p-5 text-white">
+            {title}
+            <p className="mt-2 text-sm leading-relaxed text-white/90 line-clamp-3">
+              {curtain.desc}
+            </p>
+
+            <div className="mt-4 pointer-events-auto">
+              <TransitionLink
+                href={`/${curtain.id}`}
+                className="inline-flex items-center justify-center bg-white/15 px-5 py-3 text-xs font-semibold uppercase tracking-wide text-white backdrop-blur-2xl transition-colors hover:bg-white/25"
+              >
+                {ctaLabel}
+              </TransitionLink>
+            </div>
           </div>
         </div>
       </div>
-    </Link>
+    </article>
   );
 };
 

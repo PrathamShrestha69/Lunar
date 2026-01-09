@@ -1,2 +1,10 @@
 @import "tailwindcss";
 
+@layer utilities{
+  section{
+    @apply px-4 md:px-8 lg:px-16;
+  }
+  #nav{
+    @apply px-4 md:px-8 lg:px-16;
+  }
+}

@@ -3,9 +3,9 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='px-5 py-10 lg:px-40 lg:py-15'>
-      <SupportForm/>
-    </div>
+    <section className=' py-10 lg:py-15'>
+      <SupportForm />
+    </section>
   )
 }
 

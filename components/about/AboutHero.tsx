@@ -17,11 +17,12 @@ const AboutHero = () => {
         </h1>
       </div>
 
-      <div className="bg-[#D2FF1F] p-10 text-left">
+      <section className="bg-[#D2FF1F] py-8 text-left">
         <div className=" text-black ">
           <h1 className="text-2xl lg:text-4xl uppercase">Backing Progress </h1>
           <h1 className="text-2xl lg:text-4xl uppercase"> with Purpose</h1>
         </div>
+
         <div className=" text-xs font-medium mt-5 text-[#657D11]">
           <p>
             At Nivest®, we build for movement — in culture, craft, and clarity.
@@ -49,7 +50,7 @@ const AboutHero = () => {
             </p>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

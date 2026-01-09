@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import SmoothScroll from "@/components/SmoothScroll";
+import SmoothScroll from "@/providers/SmoothScroll";
 import PageTransition from "@/components/PageTransition";
 
 const geistSans = Geist({
@@ -34,14 +34,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       ><main>
-
-          <SmoothScroll>
-            <PageTransition>
+          <PageTransition>
+            <SmoothScroll>
               <Navbar />
               {children}
               <Footer />
-            </PageTransition>
-          </SmoothScroll>
+            </SmoothScroll>
+          </PageTransition>
         </main>
       </body>
     </html>
